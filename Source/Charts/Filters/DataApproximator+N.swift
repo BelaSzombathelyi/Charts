@@ -111,9 +111,9 @@ extension DataApproximator {
             
         } while !queue.isEmpty
         
-        // create a new array with series, only take the kept ones
-        let reducedEntries = points.enumerated().compactMap { (index: Int, point: CGPoint) -> CGPoint? in
-            return keep[index] ? point : nil
+        let filteredEntryMap = points.enumerated().filter { index, point -> Bool in return keep[index] != false }
+        let reducedEntries = filteredEntryMap.map { index, point -> CGPoint in
+            return point
         }
         
         return reducedEntries
